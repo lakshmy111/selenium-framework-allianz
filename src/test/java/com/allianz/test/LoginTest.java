@@ -2,9 +2,11 @@ package com.allianz.test;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.allianz.base.AutomationWrapper;
+import com.allianz.utils.DataUtils;
 
 public class LoginTest extends AutomationWrapper {
 	
@@ -19,13 +21,15 @@ public class LoginTest extends AutomationWrapper {
 		Assert.assertEquals(actualHeader, "Dashboard");
 	}
 	
-	@Test
-	public void invalidLoginTest() {
-		driver.findElement(By.name("username")).sendKeys("Admin11111");
-		driver.findElement(By.name("password")).sendKeys("admin123xxxxxx");
+	
+	
+	@Test(dataProvider = "invalidData", dataProviderClass = DataUtils.class)
+	public void invalidLoginTest(String userName, String password, String expectedError) {
+		driver.findElement(By.name("username")).sendKeys(userName);
+		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
 		String actualError = driver.findElement(By.xpath("//p[contains(normalize-space(),'Invalid')]")).getText();
-		Assert.assertEquals(actualError, "Invalid credentials");
+		Assert.assertEquals(actualError,expectedError);
 		
 	}
 
