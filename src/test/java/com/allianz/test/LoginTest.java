@@ -10,20 +10,20 @@ import com.allianz.utils.DataUtils;
 
 public class LoginTest extends AutomationWrapper {
 	
-	@Test
-	public void validLoginTest() {
-		driver.findElement(By.name("username")).sendKeys("Admin");
-		driver.findElement(By.name("password")).sendKeys("admin123");
+	@Test(dataProvider = "commonDataProvider", dataProviderClass = DataUtils.class)
+	public void validLoginTest(String userName, String password,  String expectedHeader) {
+		driver.findElement(By.name("username")).sendKeys(userName);
+		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
 		
 		//assert the dashboard
 		String actualHeader = driver.findElement(By.xpath("//h6[contains(normalize-space(),'Dash')]")).getText();
-		Assert.assertEquals(actualHeader, "Dashboard");
+		Assert.assertEquals(actualHeader, expectedHeader);
 	}
 	
 	
 	
-	@Test(dataProvider = "invalidData", dataProviderClass = DataUtils.class)
+	@Test(dataProvider = "commonDataProvider", dataProviderClass = DataUtils.class)
 	public void invalidLoginTest(String userName, String password, String expectedError) {
 		driver.findElement(By.name("username")).sendKeys(userName);
 		driver.findElement(By.name("password")).sendKeys(password);
