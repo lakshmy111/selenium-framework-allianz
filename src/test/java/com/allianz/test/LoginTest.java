@@ -6,15 +6,21 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.allianz.base.AutomationWrapper;
+import com.allianz.pages.LoginPage;
 import com.allianz.utils.DataUtils;
 
 public class LoginTest extends AutomationWrapper {
 	
 	@Test(dataProvider = "commonDataProvider", dataProviderClass = DataUtils.class)
 	public void validLoginTest(String userName, String password,  String expectedHeader) {
-		driver.findElement(By.name("username")).sendKeys(userName);
-		driver.findElement(By.name("password")).sendKeys(password);
-		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+		
+		LoginPage.enterUserName(driver, userName);
+		LoginPage.enterPassword(driver, password);
+		LoginPage.clickOnLogin(driver);
+		
+//		driver.findElement(By.name("username")).sendKeys(userName);
+//		driver.findElement(By.name("password")).sendKeys(password);
+//		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
 		
 		//assert the dashboard
 		String actualHeader = driver.findElement(By.xpath("//h6[contains(normalize-space(),'Dash')]")).getText();
@@ -25,10 +31,10 @@ public class LoginTest extends AutomationWrapper {
 	
 	@Test(dataProvider = "commonDataProvider", dataProviderClass = DataUtils.class)
 	public void invalidLoginTest(String userName, String password, String expectedError) {
-		driver.findElement(By.name("username")).sendKeys(userName);
-		driver.findElement(By.name("password")).sendKeys(password);
-		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
-		String actualError = driver.findElement(By.xpath("//p[contains(normalize-space(),'Invalid')]")).getText();
+		LoginPage.enterUserName(driver, userName);
+		LoginPage.enterPassword(driver, password);
+		LoginPage.clickOnLogin(driver);
+		String actualError = LoginPage.getErrorMessage(driver);
 		Assert.assertEquals(actualError,expectedError);
 		
 	}
