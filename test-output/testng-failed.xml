@@ -6,7 +6,7 @@
       <class name="com.allianz.test.LoginTest">
         <methods>
           <include name="tearDown"/>
-          <include name="invalidLoginTest" invocation-numbers="0 1 2"/>
+          <include name="validLoginTest"/>
           <include name="setup"/>
         </methods>
       </class> <!-- com.allianz.test.LoginTest -->
