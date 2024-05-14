@@ -21,7 +21,7 @@ public class LoginUITest extends AutomationWrapper {
 		System.out.println("test");
 	}
 	
-	@Test
+	@Test (groups = {"ui","smoke"})
 	public void getTitle() {
 		
 		String title = driver.getTitle();

@@ -2,14 +2,15 @@ package com.allianz.pages;
 
 import org.openqa.selenium.WebDriver;
 
-public class MainPage {
-	
+public class LeavePage extends MainPage{
+
 	private WebDriver driver;
 	
-	public MainPage(WebDriver driver) {
+	public  LeavePage(WebDriver driver) {
 		this.driver = driver;
-	}
-	public MainPage() {
+	} 
+	
+	public void clickOnLeave() {
 		
 	}
 

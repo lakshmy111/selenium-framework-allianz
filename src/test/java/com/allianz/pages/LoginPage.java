@@ -3,22 +3,39 @@ package com.allianz.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage {
+import com.allianz.base.WebDriverKeywords;
 
-	public static void enterUserName(WebDriver driver, String userName) {
-		driver.findElement(By.name("username")).sendKeys(userName);
+public class LoginPage extends WebDriverKeywords{
+	
+	private WebDriver driver;
+	private By userNameLocator = By.name("username");
+	private By passwordLocator = By.name("password");
+	private By loginLocator = By.xpath("//button[normalize-space()='Login']");
+	private By errorLocator = By.xpath("//p[contains(normalize-space(),'Invalid')]");
+	
+	public LoginPage(WebDriver driver) {
+		super(driver);
+		this.driver = driver;
+	}
+
+	public  void enterUserName( String userName) {
+		sendInputText(userNameLocator, userName);
+		//this.driver.findElement(userNameLocator).sendKeys(userName);
 	}
 	
-	public static void enterPassword(WebDriver driver, String password) {
-		driver.findElement(By.name("password")).sendKeys(password);
+	public  void enterPassword( String password) {
+		sendInputText(passwordLocator, password);
+		//driver.findElement(passwordLocator).sendKeys(password);
 	}
-	public static void clickOnLogin(WebDriver driver)
+	public  void clickOnLogin()
 	{
-		driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
-	}
+		clickElement(loginLocator);
+		}
 	
 	//get invalid error messgae - shoudl return
-	public static String getErrorMessage(WebDriver driver) {
-		return driver.findElement(By.xpath("//p[contains(normalize-space(),'Invalid')]")).getText();
+	public  String getErrorMessage() {
+		return driver.findElement(errorLocator).getText();
 	}
+	
+	
 }

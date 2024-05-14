@@ -1,5 +1,21 @@
 package com.allianz.pages;
 
-public class DashboardPage {
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
+public class DashboardPage extends MainPage{
+
+	private WebDriver driver;
+	
+	public  DashboardPage(WebDriver driver) {
+		this.driver = driver;
+	}
+	public  String getDashboardHeader()
+	{
+		return driver.findElement(By.xpath("//h6[contains(normalize-space(),'Dash')]")).getText();
+	}
+	//clickOnAssignLeave
+	//clickOnLeaveList
+	//clickOnTimesheet
+	
 }
